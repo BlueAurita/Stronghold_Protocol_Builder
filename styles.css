@@ -353,3 +353,501 @@ button,input{font:inherit}button{color:inherit}body{overflow:auto}
   -webkit-backdrop-filter:none;
   opacity:1!important;
 }
+
+/* ===== v10 responsive foundation ===== */
+/* 1366×768 ~ UHD 범위에서 패널이 서로 침범하지 않도록 고정 최소폭 제거 */
+html,body{width:100%;height:100%;overflow:hidden}
+body{min-width:0!important}
+.app-shell{
+  width:100vw!important;
+  min-width:0!important;
+  height:100vh!important;
+  min-height:0!important;
+  grid-template-columns:minmax(520px,44%) minmax(0,56%)!important;
+  overflow:hidden;
+}
+.left-panel,.right-panel{min-width:0!important;min-height:0!important}
+.left-panel{padding:clamp(9px,.85vw,16px)!important;gap:clamp(7px,.65vw,11px)!important}
+.card{padding:clamp(8px,.65vw,12px)!important}
+
+/* 전장은 가로폭과 세로높이를 모두 기준으로 유동 축소/확대 */
+.board-section{min-height:0!important;overflow:hidden}
+.board-grid{
+  width:min(100%,720px,calc((100vh - 350px) * 1.5))!important;
+  min-width:0!important;
+  max-width:none!important;
+  aspect-ratio:6/4!important;
+  flex:0 1 auto;
+}
+.grid-cell{min-width:0!important;min-height:0!important}
+.grid-cell .op-card{inset:clamp(3px,.45vw,6px)!important}
+.op-tier{min-width:clamp(16px,1.45vw,22px)!important;height:clamp(16px,1.45vw,22px)!important;font-size:clamp(9px,.8vw,12px)!important;border-width:clamp(1px,.14vw,2px)!important}
+.op-covenants img,.op-covenant-fallback{width:clamp(12px,1.05vw,16px)!important;height:clamp(12px,1.05vw,16px)!important}
+.op-name-mini{font-size:clamp(7px,.7vw,10px)!important;padding-bottom:2px!important}
+
+/* 맹약 현황도 화면에 맞춰 함께 축소 */
+.covenant-status{
+  height:clamp(58px,7.2vh,78px)!important;
+  min-height:clamp(58px,7.2vh,78px)!important;
+  max-height:clamp(58px,7.2vh,78px)!important;
+  gap:clamp(3px,.45vw,7px) clamp(4px,.55vw,9px)!important;
+}
+.covenant-count{flex:0 0 clamp(48px,4.2vw,72px)!important;width:clamp(48px,4.2vw,72px)!important;min-width:clamp(48px,4.2vw,72px)!important}
+.covenant-count img,.covenant-count .status-fallback{width:clamp(22px,1.8vw,30px)!important;height:clamp(22px,1.8vw,30px)!important}
+.covenant-count .name{font-size:clamp(8px,.62vw,10px)!important}
+.covenant-count .count{font-size:clamp(13px,1vw,17px)!important}
+
+/* 벤치는 8개 정사각형을 패널 폭 안에 정확히 수용 */
+.bench-grid{
+  grid-template-columns:repeat(8,minmax(0,1fr))!important;
+  gap:clamp(3px,.45vw,7px)!important;
+  width:100%;
+}
+.bench-slot{
+  width:100%!important;
+  min-width:0!important;
+  min-height:0!important;
+  aspect-ratio:1/1!important;
+}
+
+/* 오른쪽 헤더도 고정폭 해제 */
+.browser-header{padding:clamp(9px,.9vw,16px) clamp(10px,1vw,18px)!important}
+.browser-actions{min-width:0!important;flex:1;justify-content:flex-end;gap:clamp(5px,.6vw,10px)!important}
+.browser-header input{width:clamp(180px,20vw,420px)!important;min-width:0!important;font-size:clamp(11px,.82vw,16px)!important;padding:clamp(7px,.55vw,10px) clamp(8px,.7vw,12px)!important}
+.view-btn{font-size:clamp(10px,.72vw,12px)!important;padding:clamp(6px,.5vw,8px) clamp(7px,.65vw,11px)!important}
+
+/* 필터: 1366에서는 작아지고, 큰 화면에서는 기존 크기까지 커짐 */
+.filters{padding:clamp(6px,.6vw,9px) clamp(8px,.8vw,14px) clamp(7px,.7vw,11px)!important;gap:clamp(5px,.55vw,9px)!important}
+.filter-chip{
+  min-width:0!important;
+  padding:clamp(3px,.4vw,6px) clamp(4px,.5vw,8px)!important;
+  gap:clamp(3px,.4vw,7px)!important;
+  flex:0 1 auto!important;
+}
+.filter-chip img,.filter-chip .icon-fallback{
+  width:clamp(17px,1.4vw,27px)!important;
+  height:clamp(17px,1.4vw,27px)!important;
+}
+.chip-label{font-size:clamp(8px,.68vw,14px)!important}
+.filter-row-label{font-size:clamp(8px,.62vw,10px)!important}
+.covenant-row,.extra-covenant-block{grid-template-columns:clamp(28px,2.6vw,44px) minmax(0,1fr)!important}
+.filter-chips{gap:clamp(2px,.35vw,5px)!important;min-width:0!important;overflow:hidden!important}
+
+/* 테이블: 고정 픽셀폭 대신 비율 기반. 스킬 설명은 줄바꿈으로 항상 보이게 */
+.operator-table-wrap{overflow-y:auto!important;overflow-x:hidden!important;min-width:0!important}
+.operator-table{
+  width:100%!important;
+  min-width:0!important;
+  table-layout:fixed!important;
+  font-size:clamp(10px,.76vw,16px)!important;
+}
+.operator-table th{font-size:clamp(9px,.68vw,14px)!important;padding:clamp(6px,.55vw,11px) clamp(5px,.5vw,10px)!important}
+.operator-table td{padding:clamp(6px,.55vw,11px) clamp(5px,.5vw,10px)!important;min-width:0!important}
+.tier-col{width:7%!important;min-width:0!important}
+.operator-col{width:20%!important;min-width:0!important}
+.covenant-col{width:22%!important;min-width:0!important}
+.tag-col{width:18%!important;min-width:0!important}
+.operator-table th:last-child,.operator-table td:last-child{width:33%!important}
+.ability-cell{
+  min-width:0!important;
+  width:auto!important;
+  font-size:clamp(10px,.73vw,16px)!important;
+  line-height:1.4!important;
+  white-space:normal!important;
+  overflow-wrap:anywhere!important;
+  word-break:keep-all;
+}
+.operator-cell{gap:clamp(5px,.55vw,10px)!important;min-width:0!important}
+.operator-portrait{width:clamp(38px,3.25vw,60px)!important;height:clamp(38px,3.25vw,60px)!important;flex:0 0 auto!important}
+.operator-name{font-size:clamp(10px,.8vw,18px)!important;overflow-wrap:anywhere!important}
+.tier-badge{min-width:clamp(25px,2vw,34px)!important;height:clamp(25px,2vw,34px)!important;font-size:clamp(11px,.85vw,15px)!important;padding:0 clamp(3px,.35vw,6px)!important}
+.badge-list{gap:clamp(2px,.3vw,5px)!important;min-width:0!important}
+.image-badge{
+  min-width:0!important;
+  gap:clamp(2px,.3vw,6px)!important;
+  padding:clamp(2px,.3vw,5px) clamp(3px,.4vw,7px)!important;
+  max-width:100%;
+}
+.image-badge img,.image-badge .icon-fallback{width:clamp(17px,1.35vw,26px)!important;height:clamp(17px,1.35vw,26px)!important;flex:0 0 auto}
+.image-badge span{font-size:clamp(8px,.68vw,14px)!important;white-space:normal!important;line-height:1.15!important}
+
+/* 1366×768 전용 압축: 사용자가 요구한 최소 지원 해상도 */
+@media (max-width:1450px), (max-height:800px){
+  .app-shell{grid-template-columns:minmax(520px,43%) minmax(0,57%)!important}
+  .panel-header h1{font-size:16px!important}
+  .panel-header p,.browser-header p,.hint{font-size:9px!important}
+  .terrain-tool{font-size:10px!important;padding:5px 4px!important;gap:4px!important}
+  .terrain-preview{width:16px!important;height:16px!important}
+  .card h2{font-size:12px!important}
+  .deploy-wrap strong{font-size:19px!important}
+  .board-grid{width:min(100%,600px,calc((100vh - 315px) * 1.5))!important}
+  .bench-grid{gap:4px!important}
+  .browser-header{gap:7px!important}
+  .browser-header h2{font-size:16px!important}
+  .operator-table th:last-child,.operator-table td:last-child{width:35%!important}
+  .operator-col{width:18%!important}
+  .covenant-col{width:21%!important}
+  .tag-col{width:19%!important}
+}
+
+/* FHD */
+@media (min-width:1600px) and (min-height:850px){
+  .app-shell{grid-template-columns:minmax(650px,45%) minmax(0,55%)!important}
+  .board-grid{width:min(100%,700px,calc((100vh - 350px) * 1.5))!important}
+}
+
+/* QHD / UHD: 지나치게 늘어나지 않도록 최대 크기 제한 */
+@media (min-width:2400px){
+  .app-shell{grid-template-columns:minmax(820px,42%) minmax(0,58%)!important}
+  .left-panel{padding:18px!important}
+  .board-grid{width:min(100%,780px,calc((100vh - 390px) * 1.5))!important}
+  .operator-table{font-size:16px!important}
+}
+
+
+/* ===== v11: left panel hard-separated layout ===== */
+
+/*
+  The covenant summary, battlefield, and bench now live in three independent
+  layout zones. Only the battlefield consumes flexible leftover space.
+*/
+.left-panel{
+  display:grid!important;
+  grid-template-rows:
+    auto                /* header */
+    auto                /* terrain tools */
+    auto                /* battlefield section heading / metadata */
+    minmax(0,1fr)       /* battlefield body */
+    auto!important;     /* bench section */
+  align-content:stretch;
+  min-height:0!important;
+  overflow:hidden!important;
+}
+
+/* The board section itself becomes a nested grid:
+   title -> covenant status -> battlefield canvas */
+.board-section{
+  display:grid!important;
+  grid-template-rows:auto auto minmax(0,1fr)!important;
+  min-height:0!important;
+  overflow:hidden!important;
+}
+
+/* All three zones establish their own layout/overflow boundary. */
+.left-zone{
+  position:relative;
+  min-width:0;
+  min-height:0;
+  isolation:isolate;
+}
+
+.covenant-zone{
+  flex:none!important;
+  height:88px!important;
+  min-height:88px!important;
+  max-height:88px!important;
+  overflow:visible!important;
+  z-index:20;
+}
+
+.covenant-status{
+  width:100%!important;
+  height:100%!important;
+  min-height:0!important;
+  max-height:none!important;
+  margin:0!important;
+  padding:6px 4px 7px!important;
+  box-sizing:border-box;
+  align-content:flex-start!important;
+}
+
+/* Battlefield is the only flexible zone. */
+.battlefield-zone{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  width:100%!important;
+  height:100%!important;
+  min-height:0!important;
+  overflow:hidden!important;
+  z-index:1;
+}
+
+/*
+  Board dimensions are constrained by BOTH the available width and height.
+  This prevents the 4x6 board from entering the covenant or bench zones.
+*/
+.board-grid{
+  width:min(
+    100%,
+    660px,
+    calc((100vh - 365px) * 1.5)
+  )!important;
+  max-width:100%!important;
+  min-width:0!important;
+  height:auto!important;
+  max-height:100%!important;
+  aspect-ratio:6 / 4!important;
+  margin:0!important;
+  flex:none!important;
+}
+
+/* Bench gets its own fixed row. It can never be covered by the battlefield. */
+.bench-section{
+  display:grid!important;
+  grid-template-rows:auto auto!important;
+  min-height:0!important;
+  overflow:hidden!important;
+}
+.bench-zone{
+  width:100%;
+  overflow:hidden!important;
+}
+.bench-grid{
+  width:100%!important;
+  min-width:0!important;
+  grid-template-columns:repeat(8,minmax(0,1fr))!important;
+  gap:7px!important;
+}
+.bench-slot{
+  width:100%!important;
+  min-width:0!important;
+  aspect-ratio:1/1!important;
+  height:auto!important;
+  min-height:0!important;
+}
+
+/* Avoid children visually leaking into adjacent zones. */
+.battlefield-zone .board-grid,
+.bench-zone .bench-grid{
+  contain:layout paint;
+}
+
+/* Tooltip is allowed above the board, but stays logically owned by covenant zone. */
+.covenant-tooltip{
+  z-index:500!important;
+}
+
+/* 1366x768: compact all fixed-height pieces so the battlefield still gets room. */
+@media (max-width:1500px), (max-height:820px){
+  .left-panel{
+    padding:10px!important;
+    gap:8px!important;
+  }
+  .panel-header{
+    min-height:40px;
+  }
+  .terrain-section{
+    padding:8px 10px!important;
+  }
+  .terrain-tools{
+    margin-top:7px!important;
+  }
+  .terrain-tool{
+    padding:6px 5px!important;
+  }
+  .covenant-zone{
+    height:74px!important;
+    min-height:74px!important;
+    max-height:74px!important;
+  }
+  .covenant-status{
+    gap:4px 6px!important;
+    padding:4px 2px 5px!important;
+  }
+  .covenant-count{
+    flex-basis:62px!important;
+    width:62px!important;
+    min-width:62px!important;
+  }
+  .covenant-count img,
+  .covenant-count .status-fallback{
+    width:25px!important;
+    height:25px!important;
+  }
+  .covenant-count .name{font-size:9px!important}
+  .covenant-count .count{font-size:14px!important}
+
+  .board-grid{
+    width:min(
+      100%,
+      570px,
+      calc((100vh - 330px) * 1.5)
+    )!important;
+  }
+
+  .bench-section{
+    padding:9px 10px!important;
+  }
+  .bench-grid{gap:5px!important}
+}
+
+/* FHD */
+@media (min-width:1501px) and (max-width:2200px) and (min-height:821px){
+  .board-grid{
+    width:min(100%,660px,calc((100vh - 370px) * 1.5))!important;
+  }
+}
+
+/* QHD and UHD: allow a larger battlefield, but never outside its zone. */
+@media (min-width:2201px) and (min-height:1200px){
+  .covenant-zone{
+    height:96px!important;
+    min-height:96px!important;
+    max-height:96px!important;
+  }
+  .board-grid{
+    width:min(100%,820px,calc((100vh - 450px) * 1.5))!important;
+  }
+}
+
+/* Very wide screens: horizontal width alone cannot enlarge the board enough to
+   collide with the fixed zones because height is always part of the formula. */
+@media (min-aspect-ratio: 2/1){
+  .board-grid{
+    width:min(100%,650px,calc((100vh - 340px) * 1.5))!important;
+  }
+}
+
+
+/* ===== v12: separated internally, visually continuous ===== */
+
+/* 왼쪽 패널 전체 간격 최소화 */
+.left-panel{
+  gap:3px!important;
+  padding:8px!important;
+}
+
+/* 맹약/전장/벤치를 각각 독립 영역으로 유지하되 시각적 경계는 최소화 */
+.board-section,
+.bench-section{
+  margin:0!important;
+  padding:5px!important;
+  border-radius:7px!important;
+}
+
+/* 전장 카드 내부 요소 사이 간격 최소화 */
+.board-section{
+  row-gap:2px!important;
+}
+
+/* 맹약 현황과 전장 사이를 거의 붙임 */
+.covenant-zone{
+  height:72px!important;
+  min-height:72px!important;
+  max-height:72px!important;
+  margin:0!important;
+  padding:0!important;
+}
+.covenant-status{
+  padding:3px 2px!important;
+  gap:3px 5px!important;
+}
+
+/* 전장 영역 자체도 별도 카드처럼 보이지 않게 */
+.battlefield-zone{
+  margin:0!important;
+  padding:0!important;
+  background:transparent!important;
+}
+
+/* 전장은 가능한 크게, 단 독립 영역 내부에서만 */
+.board-grid{
+  width:min(100%,680px,calc((100vh - 300px) * 1.5))!important;
+}
+
+/* 벤치: v10 느낌 복원
+   - 제목 바로 아래 8칸
+   - 슬롯 사이 적당한 간격
+   - 정사각형 유지
+   - 과도한 별도 영역 느낌 제거 */
+.bench-section{
+  padding:5px!important;
+  row-gap:3px!important;
+}
+.bench-zone{
+  margin:0!important;
+  padding:0!important;
+}
+.bench-grid{
+  margin-top:2px!important;
+  gap:7px!important;
+  padding:0!important;
+  grid-template-columns:repeat(8,minmax(0,1fr))!important;
+}
+.bench-slot{
+  aspect-ratio:1/1!important;
+  width:100%!important;
+  height:auto!important;
+  min-width:0!important;
+  min-height:0!important;
+  border-radius:8px!important;
+  border:1px dashed #465261!important;
+  background:#141920!important;
+}
+
+/* 제목 행도 최대한 얇게 */
+.section-title-row{
+  min-height:24px!important;
+  margin:0!important;
+  padding:0 2px!important;
+}
+.section-title-row h2{
+  line-height:1.1!important;
+}
+.hint{
+  line-height:1.1!important;
+}
+
+/* 화면이 낮은 1366x768 계열에서도 간격 최소 유지 */
+@media (max-width:1500px), (max-height:820px){
+  .left-panel{
+    gap:2px!important;
+    padding:6px!important;
+  }
+
+  .board-section,
+  .bench-section{
+    padding:4px!important;
+  }
+
+  .covenant-zone{
+    height:66px!important;
+    min-height:66px!important;
+    max-height:66px!important;
+  }
+
+  .covenant-status{
+    padding:2px 1px!important;
+    gap:2px 4px!important;
+  }
+
+  .board-grid{
+    width:min(100%,600px,calc((100vh - 275px) * 1.5))!important;
+  }
+
+  .bench-grid{
+    gap:5px!important;
+    margin-top:1px!important;
+  }
+}
+
+/* FHD 이상에서는 공간 여유만큼 전장을 조금 더 키움 */
+@media (min-width:1501px) and (min-height:821px){
+  .board-grid{
+    width:min(100%,720px,calc((100vh - 315px) * 1.5))!important;
+  }
+}
+
+/* QHD/UHD */
+@media (min-width:2201px) and (min-height:1200px){
+  .covenant-zone{
+    height:78px!important;
+    min-height:78px!important;
+    max-height:78px!important;
+  }
+
+  .board-grid{
+    width:min(100%,860px,calc((100vh - 360px) * 1.5))!important;
+  }
+}
