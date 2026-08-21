@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>위수 협의 배치 시뮬레이터</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<main class="app-shell">
+  <section class="left-panel">
+    <header class="panel-header">
+      <div><h1>배치 시뮬레이터</h1><p>맵 편집 · 벤치 편성 · 드래그 배치</p></div>
+      <div class="header-actions">
+        <button id="saveBtn" class="small-btn">저장</button>
+        <button id="loadBtn" class="small-btn">불러오기</button>
+        <button id="resetBtn" class="small-btn danger">초기화</button>
+      </div>
+    </header>
+
+    <section class="terrain-section card">
+      <div class="section-title-row"><h2>격자 설정</h2><span class="hint">도구 선택 후 원하는 칸을 하나씩 클릭</span></div>
+      <div id="terrainTools" class="terrain-tools">
+        <button class="terrain-tool" data-terrain="normal"><span class="terrain-preview normal"></span><span>지상 칸</span></button>
+        <button class="terrain-tool" data-terrain="blocked"><span class="terrain-preview blocked"></span><span>배치 불가</span></button>
+        <button class="terrain-tool" data-terrain="hill"><span class="terrain-preview hill"></span><span>언덕 칸</span></button>
+        <button class="terrain-tool" data-terrain="smoke"><span class="terrain-preview smoke"></span><span>연막 칸</span></button>
+      </div>
+    </section>
+
+    <section class="board-section card">
+      <div class="section-title-row board-heading">
+        <div><h2>전장</h2><span class="hint">드래그 이동 · 점유 칸에 놓으면 교환 · 우클릭 삭제</span></div>
+        <div class="deploy-wrap"><span>배치 인원</span><strong id="deployCounter">0/8</strong></div>
+      </div>
+      <div id="covenantStatus" class="covenant-status"></div>
+      <div id="board" class="board-grid" aria-label="4x6 배치 격자"></div>
+    </section>
+
+    <section class="bench-section card">
+      <div class="section-title-row"><h2>대기 슬롯</h2><span class="hint">표 클릭 시 첫 빈 칸에 자동 추가</span></div>
+      <div id="bench" class="bench-grid"></div>
+    </section>
+  </section>
+
+  <section class="right-panel">
+    <header class="browser-header">
+      <div><h2 id="browserTitle">오퍼레이터</h2><p id="resultCount">112명</p></div>
+      <div class="browser-actions">
+        <div class="view-toggle">
+          <button id="catalogViewBtn" class="view-btn active">전체 오퍼</button>
+          <button id="deployedViewBtn" class="view-btn">배치 정보</button>
+        </div>
+        <input id="searchInput" type="search" placeholder="이름 또는 능력 검색" autocomplete="off" />
+      </div>
+    </header>
+
+    <section id="filters" class="filters">
+      <div class="filter-group covenant-filter-group">
+        <div class="filter-title-row"><h3>맹약</h3><button id="clearCovenants" class="text-btn">선택 해제</button></div>
+        <div class="covenant-row"><span class="filter-row-label">핵심</span><div id="coreCovenantFilters" class="filter-chips"></div></div>
+        <div class="extra-covenant-block">
+          <span class="filter-row-label extra-label">부가</span>
+          <div class="extra-lines">
+            <div id="extraCovenantFilters1" class="filter-chips"></div>
+            <div id="extraCovenantFilters2" class="filter-chips"></div>
+          </div>
+        </div>
+      </div>
+      <div class="filter-group">
+        <div class="filter-title-row"><h3>태그</h3><button id="clearTags" class="text-btn">선택 해제</button></div>
+        <div id="tagFilters" class="filter-chips"></div>
+      </div>
+    </section>
+
+    <div class="operator-table-wrap">
+      <table class="operator-table">
+        <thead><tr><th class="tier-col">티어</th><th class="operator-col">오퍼레이터</th><th class="covenant-col">맹약</th><th class="tag-col">태그</th><th>스킬 설명</th></tr></thead>
+        <tbody id="operatorRows"></tbody>
+      </table>
+    </div>
+  </section>
+</main>
+<div id="toast" class="toast" role="status"></div>
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

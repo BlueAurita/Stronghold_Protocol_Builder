@@ -1,0 +1,355 @@
+:root{
+  --bg:#0f1217;--panel:#151a21;--card:#1b212a;--line:#2b3440;--text:#eef2f7;--muted:#98a2b3;
+  --accent:#ff9f2d;--accent-soft:#3c2b17;--blue:#4ca6ff;--danger:#ff6b6b;
+  --board-min:560px;--board-max:780px;
+}
+*{box-sizing:border-box} html,body{margin:0;min-height:100%;background:var(--bg);color:var(--text);font-family:Inter,"Pretendard","Noto Sans KR",system-ui,sans-serif}
+button,input{font:inherit}button{color:inherit}body{overflow:auto}
+.app-shell{display:grid;grid-template-columns:minmax(720px,50vw) minmax(760px,1fr);min-width:1480px;width:100vw;height:100vh;min-height:820px}
+.left-panel,.right-panel{min-width:0;overflow:hidden}.left-panel{padding:16px;display:flex;flex-direction:column;gap:11px;border-right:1px solid var(--line);background:#11151b}.right-panel{display:flex;flex-direction:column;background:var(--panel)}
+.panel-header,.browser-header,.section-title-row,.filter-title-row{display:flex;align-items:center;justify-content:space-between;gap:12px}.panel-header h1,.browser-header h2,.card h2,.filters h3{margin:0}.panel-header h1{font-size:20px}.panel-header p,.browser-header p{margin:4px 0 0;color:var(--muted);font-size:12px}.header-actions{display:flex;gap:6px}
+.small-btn,.text-btn,.view-btn{border:1px solid var(--line);background:#202732;border-radius:7px;padding:7px 10px;cursor:pointer}.small-btn.danger{color:#ffb0b0}.text-btn{border:0;background:transparent;color:var(--muted);padding:2px 5px;font-size:12px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:11px;padding:12px}.card h2{font-size:14px}.hint{color:var(--muted);font-size:11px}
+.terrain-tools{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-top:9px}.terrain-tool{border:1px solid var(--line);background:#181e26;border-radius:8px;padding:8px 6px;display:flex;align-items:center;justify-content:center;gap:7px;cursor:pointer;font-size:12px}.terrain-tool.selected{outline:2px solid var(--accent);border-color:transparent}.terrain-preview{width:20px;height:20px;border-radius:4px;border:1px solid #56606d}.terrain-preview.normal{background:#252d38}.terrain-preview.blocked{background:repeating-linear-gradient(135deg,#602c33 0 6px,#2b2428 6px 12px)}.terrain-preview.hill{background:linear-gradient(145deg,#6c7380,#323944)}.terrain-preview.smoke{background:radial-gradient(circle at 40% 40%,#8c8f95 0 14%,#50555d 16% 32%,#242a31 36%)}
+.board-section{flex:1;display:flex;flex-direction:column;min-height:0}.board-heading{margin-bottom:7px}.deploy-wrap{text-align:right;font-size:11px;color:var(--muted)}.deploy-wrap strong{display:block;color:#adb5c0;font-size:24px;line-height:1;margin-top:2px}.deploy-wrap strong.full-nine{color:var(--accent)}
+.covenant-status{display:flex;gap:8px;overflow-x:auto;padding:4px 2px 9px;min-height:62px;scrollbar-width:thin}.covenant-count{flex:0 0 50px;text-align:center;opacity:.36;transition:.15s}.covenant-count.active{opacity:1}.covenant-count img,.covenant-count .status-fallback{width:26px;height:26px;object-fit:cover;margin:0 auto 2px;border-radius:3px}.status-fallback{display:flex;align-items:center;justify-content:center;background:#27303b;font-size:7px;font-weight:800}.covenant-count .name{display:block;font-size:8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.covenant-count .count{display:block;font-size:13px;font-weight:900}.covenant-count .need{font-size:8px;color:var(--muted)}
+.board-grid{display:grid;grid-template-columns:repeat(6,1fr);width:clamp(var(--board-min),46vw,var(--board-max));max-width:100%;min-width:var(--board-min);aspect-ratio:6/4;gap:0;align-self:center;margin:auto;border:1px solid #46515f;background:#46515f;user-select:none;touch-action:none}.grid-cell{position:relative;min-width:0;min-height:0;border:0;border-radius:0;border-right:1px solid #46515f;border-bottom:1px solid #46515f;background:#252d38;overflow:hidden}.grid-cell:nth-child(6n){border-right:0}.grid-cell:nth-last-child(-n+6){border-bottom:0}.grid-cell.terrain-blocked{background:repeating-linear-gradient(135deg,#5b2b32 0 10px,#241f23 10px 20px)}.grid-cell.terrain-hill{background:linear-gradient(145deg,#737b88,#38404b 50%,#242b34)}.grid-cell.terrain-smoke{background:radial-gradient(circle at 30% 35%,rgba(190,195,202,.55),transparent 27%),radial-gradient(circle at 65% 55%,rgba(150,155,162,.38),transparent 32%),#252d38}.grid-cell.drop-target{box-shadow:inset 0 0 0 3px var(--accent)}.cell-index{position:absolute;right:3px;bottom:2px;color:#657180;font-size:8px;z-index:1;pointer-events:none}
+.op-card{position:absolute;inset:2px;display:flex;align-items:flex-end;justify-content:center;overflow:hidden;background:#161b22;cursor:grab;user-select:none}.op-card:active{cursor:grabbing}.op-card.dragging{opacity:.42}.op-card img.op-main-image{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none}.op-fallback{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:linear-gradient(145deg,#303b48,#1d242d);font-weight:800;font-size:14px;pointer-events:none}.op-name-mini{position:relative;z-index:2;width:100%;padding:18px 2px 2px;background:linear-gradient(transparent,rgba(0,0,0,.84));text-align:center;font-size:10px;pointer-events:none}.op-tier{position:absolute;z-index:4;left:3px;top:3px;min-width:22px;height:22px;padding:0 4px;display:flex;align-items:center;justify-content:center;background:#111;border:2px solid var(--tier-color,#c5c5c5);color:var(--tier-color,#c5c5c5);font-size:12px;font-weight:900;pointer-events:none}.op-covenants{position:absolute;z-index:4;left:3px;bottom:3px;display:flex;gap:2px;max-width:calc(100% - 6px);pointer-events:none}.op-covenants img,.op-covenant-fallback{width:16px;height:16px;object-fit:cover;border:1px solid rgba(255,255,255,.25);background:#111820}.op-covenant-fallback{display:flex;align-items:center;justify-content:center;font-size:5px;font-weight:800;color:#fff}
+.bench-grid{display:grid;grid-template-columns:repeat(8,minmax(64px,1fr));gap:7px;margin-top:9px;min-width:0}.bench-slot{position:relative;width:100%;aspect-ratio:1/1;min-width:64px;min-height:64px;border:1px dashed #465261;border-radius:8px;background:#141920;overflow:visible}.bench-slot.drop-target{outline:2px solid var(--accent)}.bench-slot .op-card{transform:rotate(-5deg);inset:5px;border-radius:7px}.bench-slot:nth-child(even) .op-card{transform:rotate(4deg)}
+.browser-header{padding:16px 18px;border-bottom:1px solid var(--line)}.browser-actions{display:flex;align-items:center;gap:10px}.view-toggle{display:flex;gap:4px}.view-btn{font-size:12px;padding:8px 11px}.view-btn.active{border-color:var(--accent);background:var(--accent-soft)}.browser-header input{width:clamp(240px,23vw,420px);background:#10151b;border:1px solid var(--line);border-radius:8px;color:var(--text);padding:10px 12px;outline:none;font-size:clamp(13px,.9vw,16px)}.browser-header input:focus{border-color:var(--blue)}
+.filters{padding:9px 14px 11px;border-bottom:1px solid var(--line);display:grid;gap:9px}.filter-group h3{font-size:13px;color:#c4ccd6}.covenant-filter-group{display:grid;gap:4px}.covenant-row{display:grid;grid-template-columns:44px minmax(0,1fr);align-items:center;gap:6px}.filter-row-label{font-size:10px;color:#7f8a98;text-align:center}.filter-chips{display:flex;gap:5px;flex-wrap:nowrap;overflow:hidden;padding:2px 1px;min-width:0}.filter-chip{flex:0 1 auto;min-width:58px;border:1px solid var(--line);background:#10151b;border-radius:7px;padding:4px 6px;display:flex;align-items:center;gap:5px;cursor:pointer}.filter-chip.selected{border-color:var(--accent);background:var(--accent-soft)}.filter-chip>span:first-child{display:flex;align-items:center}.filter-chip img,.filter-chip .icon-fallback{width:20px!important;height:20px!important;border-radius:3px;object-fit:cover}.icon-fallback{background:#26303b;display:flex;align-items:center;justify-content:center;font-size:7px;font-weight:800}.chip-label{font-size:clamp(9px,.65vw,11px);white-space:nowrap}
+.operator-table-wrap{flex:1;min-height:0;overflow:auto}.operator-table{width:100%;border-collapse:separate;border-spacing:0;font-size:clamp(13px,.85vw,16px)}.operator-table thead{position:sticky;top:0;z-index:10;background:#171d25}.operator-table th{padding:11px 10px;border-bottom:1px solid var(--line);color:#aeb7c3;font-size:clamp(11px,.75vw,14px);text-align:left}.operator-table td{padding:11px 10px;border-bottom:1px solid #252d37;vertical-align:middle}.operator-table tbody tr{cursor:pointer;min-height:74px}.operator-table tbody tr:hover{background:#202833}.tier-col{width:54px;text-align:center!important}.operator-col{width:155px}.covenant-col{width:190px}.tag-col{width:165px}.tier-badge{display:inline-flex;min-width:34px;height:34px;padding:0 6px;border-radius:6px;align-items:center;justify-content:center;background:#151515;border:2px solid var(--tier-color,#c5c5c5);color:var(--tier-color,#c5c5c5);font-weight:900;font-size:15px}.operator-cell{display:flex;align-items:center;gap:10px}.operator-portrait{width:60px;height:60px;border-radius:7px;object-fit:cover;background:#26303b;flex:0 0 auto}.operator-name{font-weight:800;font-size:clamp(14px,.95vw,17px)}.duplicate-count{display:inline-block;margin-left:5px;color:var(--accent);font-size:12px}.badge-list{display:flex;flex-wrap:wrap;gap:5px}.image-badge{display:flex;align-items:center;gap:4px;background:#10151b;border:1px solid #303946;border-radius:6px;padding:3px 5px}.image-badge img,.image-badge .icon-fallback{width:20px;height:20px}.image-badge span{font-size:clamp(9px,.65vw,11px);white-space:nowrap}.ability-cell{line-height:1.55;color:#d7dde5;min-width:300px}.filters.hidden{display:none}.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,18px);opacity:0;background:#080b0f;border:1px solid #3a4553;padding:9px 14px;border-radius:8px;font-size:12px;pointer-events:none;transition:.18s;z-index:100}.toast.show{opacity:1;transform:translate(-50%,0)}
+@media(max-width:1700px){:root{--board-min:520px;--board-max:700px}.app-shell{grid-template-columns:minmax(680px,49vw) minmax(720px,1fr);min-width:1400px}.operator-portrait{width:54px;height:54px}.operator-table td{padding:9px 8px}}
+@media(max-width:1500px){:root{--board-min:500px;--board-max:640px}.app-shell{grid-template-columns:650px 750px;min-width:1400px}.operator-table{font-size:13px}.operator-name{font-size:14px}.operator-table th{font-size:11px}.bench-grid{grid-template-columns:repeat(8,64px);justify-content:space-between}}
+@media(max-height:850px){:root{--board-max:600px}.covenant-status{min-height:55px}.bench-slot{min-width:58px}.bench-grid{grid-template-columns:repeat(8,minmax(58px,1fr))}.left-panel{padding:12px}.card{padding:10px}}
+
+
+/* ===== v5 overrides ===== */
+:root{
+  --operator-row-font:clamp(13px,0.92vw,17px);
+}
+
+/* 검색칸 위치는 뷰 전환과 무관하게 유지 */
+.browser-actions{min-width:520px}
+#searchInput{visibility:visible}
+
+/* 핵심/부가 구분 및 부가 2줄 간격 */
+.covenant-row{margin-bottom:5px}
+.extra-covenant-block{
+  display:grid;
+  grid-template-columns:34px minmax(0,1fr);
+  align-items:start;
+  gap:6px;
+  margin-top:3px;
+  padding-top:5px;
+  border-top:1px solid rgba(255,255,255,.055);
+}
+.extra-label{padding-top:7px}
+.extra-lines{display:grid;gap:1px;min-width:0}
+.extra-lines .filter-chips{padding-top:2px;padding-bottom:2px}
+
+/* 필터 아이콘을 조금 더 작게 */
+.filter-chip{min-width:62px;padding:4px 6px;gap:5px}
+.filter-chip .icon-fallback{width:21px;height:21px}
+.filter-chip img{width:21px!important;height:21px!important}
+.chip-label{font-size:9px}
+
+/* 오퍼레이터 테이블 확장 */
+.operator-table{font-size:var(--operator-row-font)}
+.operator-table th{font-size:clamp(12px,.8vw,15px);padding:11px 10px}
+.operator-table td{padding:11px 10px}
+.operator-col{width:150px;min-width:150px}
+.operator-portrait{width:54px;height:54px}
+.operator-name{font-size:clamp(14px,1vw,18px)}
+.ability-cell{font-size:clamp(13px,.9vw,16px);line-height:1.55}
+.image-badge span{font-size:clamp(9px,.66vw,12px)}
+
+/* 티어 색상은 숫자/테두리에 적용. 2티어는 흰색 */
+.tier-badge,.op-tier{--tier-color:#c5c5c5}
+.tier-badge{color:var(--tier-color);border-color:var(--tier-color)}
+.op-tier{color:var(--tier-color);border-color:var(--tier-color)}
+
+/* 벤치는 정사각형 + 기울기 완전 제거 */
+.bench-grid{grid-template-columns:repeat(8,minmax(68px,1fr))}
+.bench-slot{aspect-ratio:1/1;height:auto;min-width:68px;min-height:68px}
+.bench-slot .op-card,
+.bench-slot:nth-child(even) .op-card{transform:none}
+
+/* 전장 오퍼레이터를 살짝 줄여 배경 지형이 보이게 */
+.grid-cell .op-card{inset:6px}
+
+/* 연막: 셀 전체를 덮되 초상화 위, 티어/맹약 아래 */
+.grid-cell.terrain-smoke{background:#252d38}
+.grid-cell.terrain-smoke::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:3;
+  pointer-events:none;
+  opacity:.60;
+  background:
+    radial-gradient(circle at 18% 42%,rgba(226,231,235,.60) 0 9%,rgba(183,190,198,.32) 16%,transparent 31%),
+    radial-gradient(circle at 52% 28%,rgba(215,220,226,.48) 0 12%,rgba(167,175,184,.26) 20%,transparent 37%),
+    radial-gradient(circle at 78% 63%,rgba(225,229,233,.50) 0 10%,rgba(160,168,177,.28) 20%,transparent 38%);
+  filter:blur(2px);
+  animation:smokeDrift 4.8s ease-in-out infinite alternate;
+}
+@keyframes smokeDrift{
+  from{transform:translate3d(-3%,1%,0) scale(1.03);opacity:.48}
+  to{transform:translate3d(3%,-2%,0) scale(1.08);opacity:.68}
+}
+.op-tier,.op-covenants{z-index:5}
+
+/* 맹약 집계: 1명 이상만 렌더링하므로 중앙 정렬 */
+.covenant-status{
+  justify-content:center;
+  flex-wrap:wrap;
+  overflow:visible;
+  min-height:0;
+  padding:5px 2px 9px;
+}
+.covenant-count{flex:0 0 48px}
+.covenant-count img,.covenant-count .status-fallback{width:24px;height:24px}
+.covenant-count .name{font-size:8px}
+.covenant-count .count{font-size:14px}
+.covenant-count .need{font-size:8px}
+
+/* 좌표 표기는 더 이상 생성하지 않지만 잔존 요소도 숨김 */
+.cell-index{display:none!important}
+
+@media(max-width:1650px){
+  .operator-col{width:138px;min-width:138px}
+  .operator-portrait{width:50px;height:50px}
+}
+@media(max-width:1480px){
+  .operator-col{width:132px;min-width:132px}
+  .browser-actions{min-width:480px}
+}
+
+
+/* ===== v6 overrides ===== */
+
+/* 1. 언덕/연막 */
+.grid-cell.terrain-hill{
+  background:linear-gradient(to bottom,#FFE293 0%,#FED07B 100%)!important;
+}
+.grid-cell.terrain-smoke{
+  background:#252d38!important;
+}
+.grid-cell.terrain-smoke::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:3;
+  pointer-events:none;
+  background:rgba(220,225,230,.34);
+  backdrop-filter:blur(2px);
+  -webkit-backdrop-filter:blur(2px);
+  animation:none!important;
+  transform:none!important;
+  opacity:1!important;
+}
+
+/* 5. 맹약 현황 고정 높이 + 가로폭 1.5배 + 텍스트 확대 */
+.covenant-status{
+  min-height:78px!important;
+  height:78px!important;
+  max-height:78px!important;
+  align-items:flex-start;
+  align-content:flex-start;
+  justify-content:center;
+  flex-wrap:wrap;
+  overflow:hidden!important;
+  gap:7px 9px!important;
+  padding:6px 4px 8px!important;
+}
+.covenant-count{
+  flex:0 0 72px!important;
+  width:72px!important;
+  min-width:72px!important;
+}
+.covenant-count img,
+.covenant-count .status-fallback{
+  width:30px!important;
+  height:30px!important;
+  margin-bottom:2px!important;
+}
+.covenant-count .name{
+  font-size:10px!important;
+  line-height:1.1;
+}
+.covenant-count .count{
+  font-size:17px!important;
+  line-height:1.05;
+}
+
+/* 6. 우측 필터와 표 안 맹약/태그 약 1.3배 */
+.filter-chip{
+  min-width:80px!important;
+  padding:6px 8px!important;
+  gap:7px!important;
+}
+.filter-chip img,
+.filter-chip .icon-fallback{
+  width:27px!important;
+  height:27px!important;
+}
+.chip-label{
+  font-size:clamp(11px,.82vw,14px)!important;
+}
+.image-badge{
+  gap:6px!important;
+  padding:5px 7px!important;
+}
+.image-badge img,
+.image-badge .icon-fallback{
+  width:26px!important;
+  height:26px!important;
+}
+.image-badge span{
+  font-size:clamp(11px,.82vw,14px)!important;
+}
+
+/* 표 칸이 커진 배지를 수용하도록 열도 소폭 확대 */
+.covenant-col{width:220px!important;min-width:220px}
+.tag-col{width:190px!important;min-width:190px}
+
+
+/* ===== v7 overrides ===== */
+
+/* 1. 지상 칸: 지정 색상 기반 그라데이션. 제공 색상이 동일하므로 결과는 균일한 #2A3A5B 톤 */
+.grid-cell,
+.grid-cell.terrain-normal{
+  background:radial-gradient(circle at center,#2A3A5B 0%,#2A3A5B 58%,#2A3A5B 100%)!important;
+}
+
+/* 연막도 지상 칸과 같은 바탕 + 훨씬 약한 고정 안개 */
+.grid-cell.terrain-smoke{
+  background:radial-gradient(circle at center,#2A3A5B 0%,#2A3A5B 58%,#2A3A5B 100%)!important;
+}
+.grid-cell.terrain-smoke::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:3;
+  pointer-events:none;
+  background:
+    linear-gradient(rgba(235,240,245,.10),rgba(235,240,245,.10)),
+    radial-gradient(circle at 32% 45%,rgba(245,248,250,.12),transparent 48%),
+    radial-gradient(circle at 68% 58%,rgba(235,240,245,.08),transparent 52%);
+  backdrop-filter:blur(.7px);
+  -webkit-backdrop-filter:blur(.7px);
+  opacity:1!important;
+  animation:none!important;
+  transform:none!important;
+}
+
+/* 2. 전장 맹약 설명 툴팁 */
+.covenant-count{
+  position:relative;
+  cursor:help;
+}
+.covenant-tooltip{
+  display:none;
+  position:absolute;
+  left:50%;
+  top:calc(100% + 8px);
+  transform:translateX(-50%);
+  z-index:250;
+  width:max-content;
+  max-width:420px;
+  min-width:260px;
+  max-height:260px;
+  overflow:auto;
+  padding:10px 12px;
+  border:1px solid #49576a;
+  border-radius:7px;
+  background:rgba(10,14,20,.97);
+  box-shadow:0 8px 28px rgba(0,0,0,.45);
+  color:#eef2f7;
+  font-size:12px;
+  line-height:1.45;
+  font-weight:400;
+  text-align:left;
+  white-space:pre-line;
+  pointer-events:none;
+}
+.covenant-count:hover .covenant-tooltip{
+  display:block;
+}
+
+/* 툴팁이 고정 높이 맹약 현황에 잘리지 않게 */
+.covenant-status{
+  overflow:visible!important;
+  position:relative;
+  z-index:20;
+}
+.board-grid{position:relative;z-index:1}
+
+
+/* ===== v8 overrides ===== */
+/* 지상 칸 / 연막 칸 공통 기본색: 위 #1E263B, 아래 #121832 */
+.grid-cell,
+.grid-cell.terrain-normal,
+.grid-cell.terrain-smoke{
+  background:linear-gradient(to bottom,#1E263B 0%,#121832 100%)!important;
+}
+
+/* 연막 칸은 동일한 바탕색 위에 약한 고정형 뿌연 효과만 유지 */
+.grid-cell.terrain-smoke::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:3;
+  pointer-events:none;
+  background:
+    linear-gradient(rgba(235,240,245,.08),rgba(235,240,245,.08)),
+    radial-gradient(circle at 32% 45%,rgba(245,248,250,.10),transparent 48%),
+    radial-gradient(circle at 68% 58%,rgba(235,240,245,.07),transparent 52%);
+  backdrop-filter:blur(.7px);
+  -webkit-backdrop-filter:blur(.7px);
+  opacity:1!important;
+  animation:none!important;
+  transform:none!important;
+}
+
+
+/* ===== v9 overrides ===== */
+/* 배치 불가 칸: 기본 지상 그라데이션 + 내부 점선 테두리 + 중앙 X */
+.grid-cell.terrain-blocked{
+  background:linear-gradient(to bottom,#1E263B 0%,#121832 100%)!important;
+}
+
+.grid-cell.terrain-blocked::before{
+  content:"";
+  position:absolute;
+  inset:6px;
+  z-index:2;
+  pointer-events:none;
+  border:2px dashed #852335;
+  box-sizing:border-box;
+}
+
+.grid-cell.terrain-blocked::after{
+  content:"×";
+  position:absolute;
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%);
+  z-index:2;
+  pointer-events:none;
+  color:#852335;
+  font-size:22px;
+  font-weight:800;
+  line-height:1;
+  text-shadow:0 0 1px rgba(0,0,0,.25);
+}
+
+/* 연막 칸의 ::after와 충돌하지 않도록 배치불가 전용 우선 */
+.grid-cell.terrain-blocked.terrain-smoke::after{
+  content:"×";
+  background:none;
+  backdrop-filter:none;
+  -webkit-backdrop-filter:none;
+  opacity:1!important;
+}
